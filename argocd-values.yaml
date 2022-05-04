@@ -1,0 +1,36 @@
+### https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/values.yaml
+---
+controller:
+  nodeSelector: &nodeSelector
+    purpose: service
+  resources: {}
+  extensions:
+    enabled: true
+    contents:
+      - name: argo-rollouts
+        url: https://github.com/argoproj-labs/rollout-extension/releases/download/v0.2.0/extension.tar
+dex:
+  nodeSelector: *nodeSelector
+redis:
+  nodeSelector: *nodeSelector
+server:
+  nodeSelector: *nodeSelector
+  extraArgs:
+    - --insecure
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+      kubernetes.io/tls-acme: "true"
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    https: true
+    hosts:
+      - &host argo-ui.argo-demo.naviteq.io
+    tls:
+      - secretName: argocd-secret
+        hosts:
+          - *host
+repoServer:
+  nodeSelector: *nodeSelector
+controller:
+  nodeSelector: *nodeSelector
