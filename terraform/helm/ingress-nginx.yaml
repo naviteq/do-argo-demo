@@ -1,0 +1,8 @@
+# https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
+---
+
+controller:
+  nodeSelector:
+    purpose: service
+  ingressClassResource:
+    default: true
