@@ -37,7 +37,7 @@ spec:
             - "--host=0.0.0.0"
           env:
             - name: VERSION
-              value: Release {{ .Chart.AppVersion }}
+              value: Release during demo {{ .Chart.AppVersion }}
           ports:
             - name: http
               containerPort: 5000
